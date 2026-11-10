@@ -3,27 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerador de Tabuada Interativa</title>
+    <title>Pesquisa e Filtro de Alunos</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container">
-        <h2>Tabuada Interativa</h2>
+        <h2>Consulta de Estudantes</h2>
         
-        <div class="input-group">
-            <label for="numero">Digite um número (1 a 20):</label>
-            <input type="number" id="numero" min="1" max="20" placeholder="Ex: 7">
+        <div class="filtros">
+            <div class="input-group">
+                <label for="buscaNome">Pesquisar por Nome:</label>
+                <input type="text" id="buscaNome" placeholder="Digite um nome...">
+            </div>
+            
+            <div class="input-group">
+                <label for="filtroCurso">Filtrar por Curso:</label>
+                <select id="filtroCurso">
+                    <option value="">Todos os Cursos</option>
+                </select>
+            </div>
         </div>
 
-        <div class="botoes">
-            <button id="btnGerar" class="btn-primario">Gerar Tabuada</button>
-            <button id="btnLimpar" class="btn-secundario">Limpar</button>
+        <div class="listagem-header">
+            <h3>Resultados</h3>
+            <span id="qtdResultados" class="badge">0 encontrados</span>
         </div>
 
-        <p id="mensagemErro" class="erro"></p>
-        <div id="resultado"></div>
+        <p id="mensagemVazia" class="mensagem-vazia oculto">Nenhum registro corresponde à pesquisa.</p>
+        <ul id="listaResultados" class="lista"></ul>
     </div>
 
-    <script src="../js/script.js"></script>
+    <script src="../js/script..js"></script>
 </body>
 </html>

@@ -6,102 +6,94 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f2f5;
+    background-color: #eef2f5;
     display: flex;
     justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    padding: 30px 15px;
 }
 
 .container {
-    background-color: white;
-    padding: 30px;
+    background-color: #fff;
+    padding: 25px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    width: 350px;
-    text-align: center;
+    width: 100%;
+    max-width: 550px;
 }
 
-h2 {
-    color: #333;
-    margin-bottom: 20px;
+h2,
+h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+}
+
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .input-group {
-    margin-bottom: 15px;
-    text-align: left;
+    flex: 1;
 }
 
 .input-group label {
     display: block;
     margin-bottom: 5px;
-    font-size: 14px;
+    font-weight: bold;
+    font-size: 13px;
     color: #555;
 }
 
-.input-group input {
+.input-group input,
+.input-group select {
     width: 100%;
-    padding: 10px;
+    padding: 8px 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
-.botoes {
+.listagem-header {
     display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
 }
 
-button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+.badge {
+    background-color: #6c5ce7;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: bold;
-    transition: background-color 0.3s;
 }
 
-.btn-primario {
-    background-color: #007bff;
-    color: white;
+.lista {
+    list-style: none;
+    margin-top: 15px;
 }
 
-.btn-primario:hover {
-    background-color: #0056b3;
-}
-
-.btn-secundario {
-    background-color: #dc3545;
-    color: white;
-}
-
-.btn-secundario:hover {
-    background-color: #c82333;
-}
-
-.erro {
-    color: #dc3545;
-    font-size: 14px;
-    min-height: 20px;
-    margin-bottom: 15px;
-}
-
-#resultado {
-    text-align: left;
+.item-aluno {
     background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #6c5ce7;
+    padding: 10px 12px;
+    margin-bottom: 8px;
     border-radius: 4px;
+    font-size: 14px;
 }
 
-.linha-tabuada {
-    padding: 8px 15px;
-    border-bottom: 1px solid #eee;
-    color: #333;
-    font-size: 16px;
+.mensagem-vazia {
+    color: #e74c3c;
+    text-align: center;
+    margin-top: 20px;
+    font-style: italic;
 }
 
-.linha-tabuada:last-child {
-    border-bottom: none;
+.oculto {
+    display: none;
 }
