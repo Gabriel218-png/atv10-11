@@ -1,54 +1,62 @@
-const formulario = document.getElementById("form-media");
-const resultado = document.getElementById("resultado");
+const inputProduto = document.getElementById('nomeProduto');
+const inputValor = document.getElementById('valorUnitario');
+const inputQtd = document.getElementById('quantidade');
+const inputDesconto = document.getElementById('desconto');
+const btnCalcular = document.getElementById('btnCalcular');
+const mensagemErro = document.getElementById('mensagemErro');
+const divResultado = document.getElementById('resultado');
 
-formulario.addEventListener("submit", function(evento) {
+const resProduto = document.getElementById('resProduto');
+const resSubtotal = document.getElementById('resSubtotal');
+const resEconomia = document.getElementById('resEconomia');
+const resTotal = document.getElementById('resTotal');
 
-    evento.preventDefault();
+function calcularDesconto(subtotal, percentualDesconto) {
+    return subtotal * (percentualDesconto / 100);
+}
 
-    const nome = document.getElementById("nome").value.trim();
+const formatarMoeda = (valor) => {
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+};
 
-    const nota1 = Number(document.getElementById("nota1").value);
-    const nota2 = Number(document.getElementById("nota2").value);
-    const nota3 = Number(document.getElementById("nota3").value);
+btnCalcular.addEventListener('click', function() {
+    
+    mensagemErro.textContent = '';
+    divResultado.classList.add('oculto');
 
-    if (
-        nome === "" ||
-        ![nota1, nota2, nota3].every(nota =>
-            Number.isFinite(nota) && nota >= 0 && nota <= 10
-        )
-    ) {
-        resultado.textContent =
-            "Digite um nome e notas válidas entre 0 e 10.";
+    const nomeProduto = inputProduto.value.trim();
+    const valorUnitario = parseFloat(inputValor.value);
+    const quantidade = parseInt(inputQtd.value);
+    const percentualDesconto = parseFloat(inputDesconto.value);
 
-        resultado.style.color = "red";
+    if (!nomeProduto) {
+        mensagemErro.textContent = 'Erro: O nome do produto é obrigatório.';
+        return;
+    }
+    
+    if (isNaN(valorUnitario) || valorUnitario <= 0) {
+        mensagemErro.textContent = 'Erro: Insira um valor unitário válido e maior que zero.';
         return;
     }
 
-    const media = (nota1 + nota2 + nota3) / 3;
-
-    let situacao = "";
-
-    if (media >= 7) {
-
-        situacao = "Aprovado";
-
-    } else if (media >= 5) {
-
-        situacao = "Recuperação";
-
-    } else {
-
-        situacao = "Reprovado";
-
+    if (isNaN(quantidade) || quantidade < 1) {
+        mensagemErro.textContent = 'Erro: A quantidade deve ser no mínimo 1.';
+        return;
     }
 
-    // Exibindo o resultado
-    resultado.innerHTML =
-        `Aluno: ${nome}<br>
-         Média: ${media.toFixed(2)}<br>
-         Situação: ${situacao}`;
+    if (isNaN(percentualDesconto) || percentualDesconto < 0 || percentualDesconto > 100) {
+        mensagemErro.textContent = 'Erro: O desconto deve estar entre 0% e 100%.';
+        return;
+    }
 
-    resultado.style.color = "green";
+    const subtotal = valorUnitario * quantidade;
+    const valorEconomizado = calcularDesconto(subtotal, percentualDesconto);
+    const totalAPagar = subtotal - valorEconomizado;
 
+    resProduto.textContent = nomeProduto;
+    resSubtotal.textContent = formatarMoeda(subtotal);
+    resEconomia.textContent = formatarMoeda(valorEconomizado);
+    resTotal.textContent = formatarMoeda(totalAPagar);
+
+    divResultado.classList.remove('oculto');
 });
-

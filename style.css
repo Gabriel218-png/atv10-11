@@ -1,11 +1,12 @@
 * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #eef2ff;
+    background-color: #e9ecef;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,49 +16,101 @@ body {
 .container {
     background-color: white;
     padding: 30px;
-    width: 90%;
-    max-width: 440px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 380px;
 }
 
-h1 {
+h2 {
+    color: #333;
+    margin-bottom: 20px;
     text-align: center;
-    color: #3730a3;
 }
 
-label {
+.input-group {
+    margin-bottom: 15px;
+}
+
+.input-group label {
     display: block;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #495057;
     font-weight: bold;
 }
 
-input {
+.input-group input {
     width: 100%;
     padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 15px;
 }
 
-button {
+.input-group input:focus {
+    outline: none;
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.btn-primario {
     width: 100%;
-    padding: 12px;
-    margin-top: 20px;
-    background-color: #4f46e5;
+    background-color: #28a745;
     color: white;
+    padding: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    margin-bottom: 15px;
 }
 
-button:hover {
-    background-color: #3730a3;
+.btn-primario:hover {
+    background-color: #218838;
+}
+
+.erro {
+    color: #dc3545;
+    font-size: 14px;
+    text-align: center;
+    min-height: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.oculto {
+    display: none;
 }
 
 #resultado {
-    margin-top: 20px;
-    text-align: center;
-    font-weight: bold;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+.resumo-linha {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #495057;
+}
+
+.resumo-linha:last-child {
+    margin-bottom: 0;
+}
+
+.destaque-economia {
+    color: #28a745;
+}
+
+.total {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 2px dashed #ced4da;
+    font-size: 18px;
+    color: #212529;
 }

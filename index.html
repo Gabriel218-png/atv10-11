@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Média Escolar</title>
+    <title>Simulador de Compras com Desconto</title>
     <link rel="stylesheet" href="../CSS/style.css">
-    <script src="../JS/script.js" defer></script>
 </head>
 <body>
     <div class="container">
-        <h1>Calculadora Média Escolar</h1>
-
-        <form id="form-media">
-
-            <label for="">Nome do Aluno</label>
-            <input type="text" id="nome" required>
-
-            <label for="">Primeira Nota:</label>
-            <input type="number" id="nota1" min="0" max="10" step="0.1" required>
-
-            <label for="">Segunda Nota:</label>
-            <input type="number" id="nota2" min="0" max="10" step="0.1" required>
-
-            <label for="">Terceira Nota:</label>
-            <input type="number" id="nota3" min="0" max="10" step="0.1" required>
-
-            <button type="submit">Calcular Média</button>
-
-        </form>
+        <h2>Simulador de Compras</h2>
         
-        <div id="resultado"></div>
+        <div class="input-group">
+            <label for="nomeProduto">Nome do Produto:</label>
+            <input type="text" id="nomeProduto" placeholder="Ex: Notebook">
+        </div>
+
+        <div class="input-group">
+            <label for="valorUnitario">Valor Unitário (R$):</label>
+            <input type="number" id="valorUnitario" step="0.01" min="0.01" placeholder="Ex: 3500.00">
+        </div>
+
+        <div class="input-group">
+            <label for="quantidade">Quantidade:</label>
+            <input type="number" id="quantidade" min="1" placeholder="Ex: 2">
+        </div>
+
+        <div class="input-group">
+            <label for="desconto">Desconto (%):</label>
+            <input type="number" id="desconto" min="0" max="100" placeholder="Ex: 15">
+        </div>
+
+        <button id="btnCalcular" class="btn-primario">Calcular Total</button>
+
+        <p id="mensagemErro" class="erro"></p>
+        
+        <div id="resultado" class="oculto">
+            <div class="resumo-linha">
+                <span>Produto:</span>
+                <strong id="resProduto"></strong>
+            </div>
+            <div class="resumo-linha">
+                <span>Subtotal:</span>
+                <strong id="resSubtotal"></strong>
+            </div>
+            <div class="resumo-linha destaque-economia">
+                <span>Valor Economizado:</span>
+                <strong id="resEconomia"></strong>
+            </div>
+            <div class="resumo-linha total">
+                <span>Total a Pagar:</span>
+                <strong id="resTotal"></strong>
+            </div>
+        </div>
     </div>
+
+    <script src="../JS/script.js"></script>
 </body>
 </html>
