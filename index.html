@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Média Escolar</title>
+    <link rel="stylesheet" href="../CSS/style.css">
+    <script src="../JS/script.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora Média Escolar</h1>
+
+        <form id="form-media">
+
+            <label for="">Nome do Aluno</label>
+            <input type="text" id="nome" required>
+
+            <label for="">Primeira Nota:</label>
+            <input type="number" id="nota1" min="0" max="10" step="0.1" required>
+
+            <label for="">Segunda Nota:</label>
+            <input type="number" id="nota2" min="0" max="10" step="0.1" required>
+
+            <label for="">Terceira Nota:</label>
+            <input type="number" id="nota3" min="0" max="10" step="0.1" required>
+
+            <button type="submit">Calcular Média</button>
+
+        </form>
+        
+        <div id="resultado"></div>
+    </div>
+</body>
+</html>
