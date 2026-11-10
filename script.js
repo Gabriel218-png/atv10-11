@@ -1,91 +1,48 @@
 
-const estoque = [];
+const alunos = [];
 
-const formProduto = document.getElementById('formProduto');
-const inputCodigo = document.getElementById('codigo');
-const inputNome = document.getElementById('nomeProduto');
-const inputQtd = document.getElementById('quantidade');
-const inputPreco = document.getElementById('preco');
+const formAluno = document.getElementById('formAluno');
+const inputMatricula = document.getElementById('matricula');
+const inputNome = document.getElementById('nome');
+const inputIdade = document.getElementById('idade');
+const inputCurso = document.getElementById('curso');
 const mensagemErro = document.getElementById('mensagemErro');
-const valorTotalEstoque = document.getElementById('valorTotalEstoque');
-const listaEstoque = document.getElementById('listaEstoque');
+const listaAlunos = document.getElementById('listaAlunos');
+const totalAlunos = document.getElementById('totalAlunos');
 
-function calcularTotalEstoque() {
-    const total = estoque.reduce((acc, prod) => acc + (prod.quantidade * prod.preco), 0);
-    valorTotalEstoque.textContent = total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
-
-function entradaMercadoria(codigo) {
-    mensagemErro.textContent = '';
-    const produto = estoque.find(p => p.codigo === codigo);
-    if (produto) {
-        produto.quantidade += 1;
-        atualizarInterface();
-    }
-}
-
-function saídaMercadoria(codigo) {
-    mensagemErro.textContent = '';
-    const produto = estoque.find(p => p.codigo === codigo);
+function renderizarAlunos() {
+    listaAlunos.innerHTML = '';
     
-    if (produto) {
-
-        if (produto.quantidade <= 0) {
-            mensagemErro.textContent = `Erro: Estoque insuficiente para saída do produto "${produto.nome}"!`;
-            return;
-        }
-        produto.quantidade -= 1;
-        atualizarInterface();
-    }
-}
-
-function atualizarInterface() {
-    listaEstoque.innerHTML = '';
-
-    estoque.forEach(prod => {
+    alunos.forEach(aluno => {
         const li = document.createElement('li');
-       
-        const eEstoqueBaixo = prod.quantidade < 5;
-        li.className = `item-produto ${eEstoqueBaixo ? 'estoque-baixo' : ''}`;
-
-        const totalItem = (prod.quantidade * prod.preco).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        const precoUnit = prod.preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-
-        li.innerHTML = `
-            <div class="info-prod">
-                <strong>[${prod.codigo}] ${prod.nome}</strong><br>
-                Qtd: <strong>${prod.quantidade}</strong> | R$: ${precoUnit} | Subtotal: ${totalItem}
-                ${eEstoqueBaixo ? '<span class="alerta-baixo">⚠ Estoque Baixo (Menos de 5 unidades)</span>' : ''}
-            </div>
-            <div class="acoes-prod">
-                <button class="btn btn-entrar" onclick="entradaMercadoria('${prod.codigo}')">+1 Entrar</button>
-                <button class="btn btn-sair" onclick="saídaMercadoria('${prod.codigo}')">-1 Sair</button>
-            </div>
-        `;
-        listaEstoque.appendChild(li);
+        li.className = 'item-aluno';
+        li.innerHTML = `<strong>[${aluno.matricula}]</strong> ${aluno.nome} - ${aluno.idade} anos | Curso: ${aluno.curso}`;
+        listaAlunos.appendChild(li);
     });
 
-    calcularTotalEstoque();
+    totalAlunos.textContent = `Total: ${alunos.length}`;
 }
 
-formProduto.addEventListener('submit', function(e) {
+formAluno.addEventListener('submit', function(e) {
     e.preventDefault();
     mensagemErro.textContent = '';
 
-    const codigo = inputCodigo.value.trim();
+    const matricula = inputMatricula.value.trim();
     const nome = inputNome.value.trim();
-    const quantidade = parseInt(inputQtd.value);
-    const preco = parseFloat(inputPreco.value);
+    const idade = parseInt(inputIdade.value);
+    const curso = inputCurso.value.trim();
 
-    const prodExistente = estoque.find(p => p.codigo === codigo);
-    if (prodExistente) {
-        mensagemErro.textContent = 'Erro: Já existe um produto cadastrado com este código!';
+    const matriculaExiste = alunos.some(aluno => aluno.matricula === matricula);
+    if (matriculaExiste) {
+        mensagemErro.textContent = 'Erro: Já existe um aluno cadastrado com esta matrícula!';
         return;
     }
 
-    estoque.push({ codigo, nome, quantidade, preco });
+    const novoAluno = { matricula, nome, idade, curso };
 
-    formProduto.reset();
-    inputCodigo.focus();
-    atualizarInterface();
+    alunos.push(novoAluno);
+
+    renderizarAlunos();
+    formAluno.reset();
+    inputMatricula.focus();
 });

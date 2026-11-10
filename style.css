@@ -6,136 +6,101 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f4f8;
+    background-color: #f4f6f9;
     display: flex;
     justify-content: center;
     padding: 30px 15px;
 }
 
 .container {
-    background-color: white;
+    background-color: #fff;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 600px;
+    max-width: 500px;
 }
 
 h2,
 h3 {
-    color: #1a252f;
-    margin-bottom: 12px;
-}
-
-.card {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 6px;
-    border: 1px solid #e9ecef;
+    color: #333;
     margin-bottom: 15px;
 }
 
-.form-row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
+.input-group {
+    margin-bottom: 12px;
 }
 
-.form-row input {
-    flex: 1;
-    padding: 8px 10px;
-    border: 1px solid #ced4da;
+.input-group label {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #555;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 14px;
 }
 
 .btn {
-    padding: 8px 12px;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
     border: none;
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
-    color: white;
-    transition: 0.2s;
+    transition: 0.3s;
+    margin-top: 5px;
 }
 
-.btn-sucesso {
-    background-color: #28a745;
-    width: 100%;
-}
-
-.btn-sucesso:hover {
-    background-color: #218838;
-}
-
-.btn-entrar {
-    background-color: #007bff;
-}
-
-.btn-entrar:hover {
+.btn:hover {
     background-color: #0056b3;
-}
-
-.btn-sair {
-    background-color: #dc3545;
-}
-
-.btn-sair:hover {
-    background-color: #c82333;
 }
 
 .erro {
     color: #dc3545;
     font-size: 14px;
+    margin-top: 10px;
     min-height: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
-    text-align: center;
 }
 
-.resumo-estoque {
-    background-color: #e9ecef;
-    padding: 12px 15px;
-    border-radius: 6px;
+.listagem-header {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
-    margin-bottom: 20px;
+    align-items: center;
+    margin-top: 25px;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+}
+
+.badge {
+    background-color: #17a2b8;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 13px;
     font-weight: bold;
 }
 
 .lista {
     list-style: none;
+    margin-top: 15px;
 }
 
-.item-produto {
-    background-color: #fff;
-    border: 1px solid #dee2e6;
-    padding: 12px;
-    border-radius: 6px;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.item-produto.estoque-baixo {
-    border-left: 5px solid #dc3545;
-    background-color: #fff5f5;
-}
-
-.info-prod {
+.item-aluno {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-left: 4px solid #007bff;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    border-radius: 4px;
     font-size: 14px;
-}
-
-.alerta-baixo {
-    color: #dc3545;
-    font-size: 12px;
-    font-weight: bold;
-    display: block;
-    margin-top: 2px;
-}
-
-.acoes-prod {
-    display: flex;
-    gap: 5px;
 }
