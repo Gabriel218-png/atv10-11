@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa e Filtro de Alunos</title>
+    <title>Controle de Estoque</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container">
-        <h2>Consulta de Estudantes</h2>
-        
-        <div class="filtros">
-            <div class="input-group">
-                <label for="buscaNome">Pesquisar por Nome:</label>
-                <input type="text" id="buscaNome" placeholder="Digite um nome...">
+        <h2>Controle de Estoque</h2>
+
+        <form id="formProduto" class="card">
+            <h3>Cadastrar / Atualizar Produto</h3>
+            <div class="form-row">
+                <input type="text" id="codigo" placeholder="Código" required>
+                <input type="text" id="nomeProduto" placeholder="Nome do Produto" required>
             </div>
-            
-            <div class="input-group">
-                <label for="filtroCurso">Filtrar por Curso:</label>
-                <select id="filtroCurso">
-                    <option value="">Todos os Cursos</option>
-                </select>
+            <div class="form-row">
+                <input type="number" id="quantidade" min="0" placeholder="Qtd Inicial" required>
+                <input type="number" id="preco" step="0.01" min="0.01" placeholder="Preço (R$)" required>
             </div>
+            <button type="submit" class="btn btn-sucesso">Cadastrar Produto</button>
+        </form>
+
+        <p id="mensagemErro" class="erro"></p>
+
+        <div class="resumo-estoque">
+            <span>Valor Total em Estoque:</span>
+            <strong id="valorTotalEstoque">R$ 0,00</strong>
         </div>
 
-        <div class="listagem-header">
-            <h3>Resultados</h3>
-            <span id="qtdResultados" class="badge">0 encontrados</span>
-        </div>
-
-        <p id="mensagemVazia" class="mensagem-vazia oculto">Nenhum registro corresponde à pesquisa.</p>
-        <ul id="listaResultados" class="lista"></ul>
+        <h3>Produtos Registrados</h3>
+        <ul id="listaEstoque" class="lista"></ul>
     </div>
 
-    <script src="../js/script..js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>

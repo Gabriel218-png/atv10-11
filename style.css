@@ -6,94 +6,136 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #eef2f5;
+    background-color: #f0f4f8;
     display: flex;
     justify-content: center;
     padding: 30px 15px;
 }
 
 .container {
-    background-color: #fff;
+    background-color: white;
     padding: 25px;
     border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 550px;
+    max-width: 600px;
 }
 
 h2,
 h3 {
-    color: #2c3e50;
+    color: #1a252f;
+    margin-bottom: 12px;
+}
+
+.card {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
     margin-bottom: 15px;
 }
 
-.filtros {
+.form-row {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
-.input-group {
+.form-row input {
     flex: 1;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 13px;
-    color: #555;
-}
-
-.input-group input,
-.input-group select {
-    width: 100%;
     padding: 8px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da;
     border-radius: 4px;
-    font-size: 14px;
 }
 
-.listagem-header {
+.btn {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    transition: 0.2s;
+}
+
+.btn-sucesso {
+    background-color: #28a745;
+    width: 100%;
+}
+
+.btn-sucesso:hover {
+    background-color: #218838;
+}
+
+.btn-entrar {
+    background-color: #007bff;
+}
+
+.btn-entrar:hover {
+    background-color: #0056b3;
+}
+
+.btn-sair {
+    background-color: #dc3545;
+}
+
+.btn-sair:hover {
+    background-color: #c82333;
+}
+
+.erro {
+    color: #dc3545;
+    font-size: 14px;
+    min-height: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.resumo-estoque {
+    background-color: #e9ecef;
+    padding: 12px 15px;
+    border-radius: 6px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 15px;
-    border-bottom: 2px solid #eee;
-    padding-bottom: 8px;
-}
-
-.badge {
-    background-color: #6c5ce7;
-    color: white;
-    padding: 4px 10px;
-    border-radius: 12px;
-    font-size: 13px;
+    font-size: 16px;
+    margin-bottom: 20px;
     font-weight: bold;
 }
 
 .lista {
     list-style: none;
-    margin-top: 15px;
 }
 
-.item-aluno {
-    background-color: #f8f9fa;
-    border: 1px solid #e9ecef;
-    border-left: 4px solid #6c5ce7;
-    padding: 10px 12px;
-    margin-bottom: 8px;
-    border-radius: 4px;
+.item-produto {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-produto.estoque-baixo {
+    border-left: 5px solid #dc3545;
+    background-color: #fff5f5;
+}
+
+.info-prod {
     font-size: 14px;
 }
 
-.mensagem-vazia {
-    color: #e74c3c;
-    text-align: center;
-    margin-top: 20px;
-    font-style: italic;
+.alerta-baixo {
+    color: #dc3545;
+    font-size: 12px;
+    font-weight: bold;
+    display: block;
+    margin-top: 2px;
 }
 
-.oculto {
-    display: none;
+.acoes-prod {
+    display: flex;
+    gap: 5px;
 }
