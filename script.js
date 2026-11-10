@@ -1,141 +1,168 @@
+let tarefas = JSON.parse(localStorage.getItem('q8_tarefas')) || [];
 
-let estudantes = JSON.parse(localStorage.getItem('q7_estudantes')) || [];
-let registrosFrequencia = JSON.parse(localStorage.getItem('q7_frequencia')) || [];
+const formTarefa = document.getElementById('formTarefa');
+const tarefaId = document.getElementById('tarefaId');
+const inputTitulo = document.getElementById('titulo');
+const inputDescricao = document.getElementById('descricao');
+const selectPrioridade = document.getElementById('prioridade');
+const inputPrazo = document.getElementById('prazo');
+const btnSalvar = document.getElementById('btnSalvar');
+const btnCancelar = document.getElementById('btnCancelar');
+const tituloForm = document.getElementById('tituloForm');
 
-const formEstudante = document.getElementById('formEstudante');
-const formFrequencia = document.getElementById('formFrequencia');
-const selectAluno = document.getElementById('selectAluno');
-const mensagemErro = document.getElementById('mensagemErro');
-const secaoAlertas = document.getElementById('secaoAlertas');
-const listaAlertas = document.getElementById('listaAlertas');
-const tabelaHistorico = document.getElementById('tabelaHistorico');
+const filtroStatus = document.getElementById('filtroStatus');
+const ordemCampo = document.getElementById('ordemCampo');
+const listaTarefas = document.getElementById('listaTarefas');
 
-function salvarDados() {
-    localStorage.setItem('q7_estudantes', JSON.stringify(estudantes));
-    localStorage.setItem('q7_frequencia', JSON.stringify(registrosFrequencia));
+function salvarLocalStorage() {
+    localStorage.setItem('q8_tarefas', JSON.stringify(tarefas));
 }
 
-function atualizarSelectAlunos() {
-    selectAluno.innerHTML = '<option value="">Selecione o Estudante</option>';
-    estudantes.forEach(est => {
-        const option = document.createElement('option');
-        option.value = est.matricula;
-        option.textContent = `${est.nome} (${est.turma})`;
-        selectAluno.appendChild(option);
+function calcularStatus(tarefa) {
+    if (tarefa.concluida) return 'concluida';
+    
+    const hoje = new Date().toISOString().split('T')[0];
+    if (tarefa.prazo < hoje) return 'atrasada';
+    
+    return 'pendente';
+}
+
+function atualizarIndicadores() {
+    const total = tarefas.length;
+    const concluidas = tarefas.filter(t => t.concluida).length;
+    const pendentes = tarefas.filter(t => calcularStatus(t) === 'pendente').length;
+    const atrasadas = tarefas.filter(t => calcularStatus(t) === 'atrasada').length;
+
+    document.getElementById('indTotal').textContent = total;
+    document.getElementById('indConcluidas').textContent = concluidas;
+    document.getElementById('indPendentes').textContent = pendentes;
+    document.getElementById('indAtrasadas').textContent = atrasadas;
+}
+
+function renderizarTarefas() {
+    listaTarefas.innerHTML = '';
+    const statusFiltro = filtroStatus.value;
+    const campoOrdem = ordemCampo.value;
+
+    let tarefasFiltradas = tarefas.filter(t => {
+        const st = calcularStatus(t);
+        if (statusFiltro === 'todas') return true;
+        if (statusFiltro === 'concluidas') return t.concluida;
+        if (statusFiltro === 'pendentes') return st === 'pendente';
+        if (statusFiltro === 'atrasadas') return st === 'atrasada';
     });
-}
 
-function verificarAlertasPedagogicos() {
-    listaAlertas.innerHTML = '';
-    let temAlerta = false;
-
-    estudantes.forEach(est => {
-     
-        const registros = registrosFrequencia
-            .filter(r => r.matricula === est.matricula)
-            .sort((a, b) => new Date(a.data) - new Date(b.data));
-
-        let faltasConsecutivas = 0;
-        let maxConsecutivas = 0;
-
-        registros.forEach(r => {
-            if (r.status === 'FNJ') {
-                faltasConsecutivas++;
-                if (faltasConsecutivas > maxConsecutivas) maxConsecutivas = faltasConsecutivas;
-            } else {
-                faltasConsecutivas = 0;
-            }
-        });
-
-        if (maxConsecutivas >= 3) {
-            temAlerta = true;
-            const li = document.createElement('li');
-            li.textContent = `🚨 ${est.nome} (Matrícula: ${est.matricula} | Turma: ${est.turma}) possui ${maxConsecutivas} faltas NÃO justificadas consecutivas!`;
-            listaAlertas.appendChild(li);
+    tarefasFiltradas.sort((a, b) => {
+        if (campoOrdem === 'prazo') {
+            return new Date(a.prazo) - new Date(b.prazo);
+        } else if (campoOrdem === 'prioridade') {
+            return b.prioridade - a.prioridade; 
         }
     });
 
-    if (temAlerta) {
-        secaoAlertas.classList.remove('oculto');
-    } else {
-        secaoAlertas.classList.add('oculto');
-    }
-}
+    const prioTexto = { 1: 'Baixa', 2: 'Média', 3: 'Alta' };
 
-function renderizarRelatorio() {
-    tabelaHistorico.innerHTML = '';
+    tarefasFiltradas.forEach(t => {
+        const status = calcularStatus(t);
+        const li = document.createElement('li');
+        li.className = `item-tarefa ${status}`;
 
-    estudantes.forEach(est => {
-        const registros = registrosFrequencia
-            .filter(r => r.matricula === est.matricula)
-            .sort((a, b) => new Date(a.data) - new Date(b.data));
+        const prazoFmt = t.prazo.split('-').reverse().join('/');
 
-        const presencas = registros.filter(r => r.status === 'P').length;
-        const faltasJ = registros.filter(r => r.status === 'FJ').length;
-        const faltasNJ = registros.filter(r => r.status === 'FNJ').length;
-
-        const historicoTags = registros.slice(-5).map(r => {
-            const dataFmt = r.data.split('-').reverse().slice(0, 2).join('/');
-            return `<span class="tag tag-${r.status.toLowerCase()}">${dataFmt}: ${r.status}</span>`;
-        }).join('');
-
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${est.matricula}</td>
-            <td>${est.nome}</td>
-            <td>${est.turma}</td>
-            <td>${presencas}</td>
-            <td>${faltasJ}</td>
-            <td>${faltasNJ}</td>
-            <td>${historicoTags || 'Sem registros'}</td>
+        li.innerHTML = `
+            <div class="info-t">
+                <h4 class="titulo-t">${t.titulo}</h4>
+                <p>${t.descricao}</p>
+                <div class="tags-t">
+                    <span class="tag-prio">Prioridade: ${prioTexto[t.prioridade]}</span>
+                    <span class="tag-prazo">Prazo: ${prazoFmt}</span>
+                </div>
+            </div>
+            <div class="acoes-t">
+                <button class="btn-sm btn-check" onclick="alternarConcluida('${t.id}')">${t.concluida ? 'Desfazer' : 'Concluir'}</button>
+                <button class="btn-sm btn-edit" onclick="editarTarefa('${t.id}')">Editar</button>
+                <button class="btn-sm btn-del" onclick="excluirTarefa('${t.id}')">Excluir</button>
+            </div>
         `;
-        tabelaHistorico.appendChild(tr);
+        listaTarefas.appendChild(li);
     });
 
-    verificarAlertasPedagogicos();
+    atualizarIndicadores();
 }
 
-formEstudante.addEventListener('submit', function(e) {
+formTarefa.addEventListener('submit', function(e) {
     e.preventDefault();
-    mensagemErro.textContent = '';
-    
-    const matricula = document.getElementById('matricula').value.trim();
-    const nome = document.getElementById('nome').value.trim();
-    const turma = document.getElementById('turma').value.trim();
-    const curso = document.getElementById('curso').value.trim();
+    const id = tarefaId.value;
+    const titulo = inputTitulo.value.trim();
+    const descricao = inputDescricao.value.trim();
+    const prioridade = parseInt(selectPrioridade.value);
+    const prazo = inputPrazo.value;
 
-    if (estudantes.some(e => e.matricula === matricula)) {
-        mensagemErro.textContent = 'Erro: Matrícula já cadastrada!';
-        return;
+    if (id) {
+        
+        const index = tarefas.findIndex(t => t.id === id);
+        if (index !== -1) {
+            tarefas[index] = { ...tarefas[index], titulo, descricao, prioridade, prazo };
+        }
+    } else {
+        
+        const novaTarefa = {
+            id: Date.now().toString(),
+            titulo,
+            descricao,
+            prioridade,
+            prazo,
+            concluida: false
+        };
+        tarefas.push(novaTarefa);
     }
 
-    estudantes.push({ matricula, nome, turma, curso });
-    salvarDados();
-    atualizarSelectAlunos();
-    renderizarRelatorio();
-    formEstudante.reset();
+    salvarLocalStorage();
+    resetarFormulario();
+    renderizarTarefas();
 });
 
-formFrequencia.addEventListener('submit', function(e) {
-    e.preventDefault();
-    mensagemErro.textContent = '';
-
-    const matricula = selectAluno.value;
-    const data = document.getElementById('dataRegistro').value;
-    const status = document.getElementById('statusFrequencia').value;
-
-    const jaRegistrado = registrosFrequencia.some(r => r.matricula === matricula && r.data === data);
-    if (jaRegistrado) {
-        mensagemErro.textContent = 'Erro: Já existe um registro de frequência para este estudante nesta data!';
-        return;
+function alternarConcluida(id) {
+    const tarefa = tarefas.find(t => t.id === id);
+    if (tarefa) {
+        tarefa.concluida = !tarefa.concluida;
+        salvarLocalStorage();
+        renderizarTarefas();
     }
+}
 
-    registrosFrequencia.push({ matricula, data, status });
-    salvarDados();
-    renderizarRelatorio();
-    formFrequencia.reset();
-});
+function editarTarefa(id) {
+    const tarefa = tarefas.find(t => t.id === id);
+    if (tarefa) {
+        tarefaId.value = tarefa.id;
+        inputTitulo.value = tarefa.titulo;
+        inputDescricao.value = tarefa.descricao;
+        selectPrioridade.value = tarefa.prioridade;
+        inputPrazo.value = tarefa.prazo;
+        
+        tituloForm.textContent = 'Editar Tarefa';
+        btnSalvar.textContent = 'Atualizar Tarefa';
+        btnCancelar.classList.remove('oculto');
+    }
+}
 
-// Inicialização
-atualizarSelectAlunos();
-renderizarRelatorio();
+function excluirTarefa(id) {
+    tarefas = tarefas.filter(t => t.id !== id);
+    salvarLocalStorage();
+    renderizarTarefas();
+}
+
+function resetarFormulario() {
+    tarefaId.value = '';
+    formTarefa.reset();
+    tituloForm.textContent = 'Nova Tarefa';
+    btnSalvar.textContent = 'Salvar Tarefa';
+    btnCancelar.classList.add('oculto');
+}
+
+btnCancelar.addEventListener('click', resetarFormulario);
+filtroStatus.addEventListener('change', renderizarTarefas);
+ordemCampo.addEventListener('change', renderizarTarefas);
+
+// Inicializar
+renderizarTarefas();

@@ -4,67 +4,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monitoramento de Frequência Escolar</title>
+    <title>Gerenciador de Tarefas</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
     <div class="container">
-        <h2>Monitoramento de Frequência Escolar</h2>
+        <h2>Gerenciador de Tarefas</h2>
 
-        <form id="formEstudante" class="card">
-            <h3>Cadastrar Estudante</h3>
-            <div class="form-grid">
-                <input type="text" id="matricula" placeholder="Matrícula" required>
-                <input type="text" id="nome" placeholder="Nome Completo" required>
-                <input type="text" id="turma" placeholder="Turma (ex: 3A)" required>
-                <input type="text" id="curso" placeholder="Curso" required>
-            </div>
-            <button type="submit" class="btn btn-primario">Cadastrar Aluno</button>
-        </form>
-
-        <form id="formFrequencia" class="card">
-            <h3>Registrar Frequência</h3>
-            <div class="form-grid">
-                <select id="selectAluno" required>
-                    <option value="">Selecione o Estudante</option>
-                </select>
-                <input type="date" id="dataRegistro" required>
-                <select id="statusFrequencia" required>
-                    <option value="P">Presença</option>
-                    <option value="FJ">Falta Justificada</option>
-                    <option value="FNJ">Falta NÃO Justificada</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-sucesso">Registrar Frequência</button>
-        </form>
-
-        <p id="mensagemErro" class="erro"></p>
-
-        <div id="secaoAlertas" class="alertas-container oculto">
-            <h3>Alertas Pedagógicos (>3 Faltas Injustificadas Consecutivas)</h3>
-            <ul id="listaAlertas" class="lista-alertas"></ul>
+        <div class="indicadores">
+            <div class="card-ind total">Total: <span id="indTotal">0</span></div>
+            <div class="card-ind concluidas">Concluídas: <span id="indConcluidas">0</span></div>
+            <div class="card-ind pendentes">Pendentes: <span id="indPendentes">0</span></div>
+            <div class="card-ind atrasadas">Atrasadas: <span id="indAtrasadas">0</span></div>
         </div>
 
-        <div class="card">
-            <h3>Histórico de Frequência</h3>
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Matrícula</th>
-                            <th>Nome</th>
-                            <th>Turma</th>
-                            <th>Presenças</th>
-                            <th>Faltas Just.</th>
-                            <th>Faltas Não Just.</th>
-                            <th>Histórico (Últimos registros)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabelaHistorico"></tbody>
-                </table>
+        <form id="formTarefa" class="card">
+            <h3 id="tituloForm">Nova Tarefa</h3>
+            <input type="hidden" id="tarefaId">
+            <div class="form-group">
+                <input type="text" id="titulo" placeholder="Título da Tarefa" required>
+            </div>
+            <div class="form-group">
+                <textarea id="descricao" placeholder="Descrição da Tarefa" rows="2" required></textarea>
+            </div>
+            <div class="form-grid">
+                <div>
+                    <label>Prioridade:</label>
+                    <select id="prioridade" required>
+                        <option value="1">Baixa</option>
+                        <option value="2">Média</option>
+                        <option value="3">Alta</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Prazo:</label>
+                    <input type="date" id="prazo" required>
+                </div>
+            </div>
+            <div class="botoes-form">
+                <button type="submit" id="btnSalvar" class="btn btn-primario">Salvar Tarefa</button>
+                <button type="button" id="btnCancelar" class="btn btn-secundario oculto">Cancelar</button>
+            </div>
+        </form>
+
+        <div class="controles card">
+            <div class="control-group">
+                <label>Filtrar:</label>
+                <select id="filtroStatus">
+                    <option value="todas">Todas</option>
+                    <option value="pendentes">Pendentes</option>
+                    <option value="concluidas">Concluídas</option>
+                    <option value="atrasadas">Atrasadas</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Ordenar por:</label>
+                <select id="ordemCampo">
+                    <option value="prazo">Prazo</option>
+                    <option value="prioridade">Prioridade</option>
+                </select>
             </div>
         </div>
+
+        <ul id="listaTarefas" class="lista-tarefas"></ul>
     </div>
 
     <script src="../js/script.js"></script>
