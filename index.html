@@ -3,57 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simulador de Compras com Desconto</title>
-    <link rel="stylesheet" href="../CSS/style.css">
+    <title>Gerador de Tabuada Interativa</title>
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <div class="container">
-        <h2>Simulador de Compras</h2>
+        <h2>Tabuada Interativa</h2>
         
         <div class="input-group">
-            <label for="nomeProduto">Nome do Produto:</label>
-            <input type="text" id="nomeProduto" placeholder="Ex: Notebook">
+            <label for="numero">Digite um número (1 a 20):</label>
+            <input type="number" id="numero" min="1" max="20" placeholder="Ex: 7">
         </div>
 
-        <div class="input-group">
-            <label for="valorUnitario">Valor Unitário (R$):</label>
-            <input type="number" id="valorUnitario" step="0.01" min="0.01" placeholder="Ex: 3500.00">
+        <div class="botoes">
+            <button id="btnGerar" class="btn-primario">Gerar Tabuada</button>
+            <button id="btnLimpar" class="btn-secundario">Limpar</button>
         </div>
-
-        <div class="input-group">
-            <label for="quantidade">Quantidade:</label>
-            <input type="number" id="quantidade" min="1" placeholder="Ex: 2">
-        </div>
-
-        <div class="input-group">
-            <label for="desconto">Desconto (%):</label>
-            <input type="number" id="desconto" min="0" max="100" placeholder="Ex: 15">
-        </div>
-
-        <button id="btnCalcular" class="btn-primario">Calcular Total</button>
 
         <p id="mensagemErro" class="erro"></p>
-        
-        <div id="resultado" class="oculto">
-            <div class="resumo-linha">
-                <span>Produto:</span>
-                <strong id="resProduto"></strong>
-            </div>
-            <div class="resumo-linha">
-                <span>Subtotal:</span>
-                <strong id="resSubtotal"></strong>
-            </div>
-            <div class="resumo-linha destaque-economia">
-                <span>Valor Economizado:</span>
-                <strong id="resEconomia"></strong>
-            </div>
-            <div class="resumo-linha total">
-                <span>Total a Pagar:</span>
-                <strong id="resTotal"></strong>
-            </div>
-        </div>
+        <div id="resultado"></div>
     </div>
 
-    <script src="../JS/script.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
