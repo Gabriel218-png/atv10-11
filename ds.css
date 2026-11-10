@@ -1,0 +1,131 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eef2f7;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    margin-bottom: 20px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input,
+select {
+    padding: 9px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+    font-size: 14px;
+}
+
+.btn {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+.dash-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.metric-card {
+    text-align: center;
+}
+
+.metric-card h4 {
+    color: #7f8c8d;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.valor-metrica {
+    font-size: 32px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* Gráficos em CSS */
+.grafico-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.barra-grupo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.label-barra {
+    font-size: 13px;
+    font-weight: bold;
+    color: #555;
+}
+
+.trilho-barra {
+    background-color: #ecf0f1;
+    height: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.fill-barra {
+    height: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: bold;
+    transition: width 0.5s ease;
+    min-width: 30px;
+}
+
+.bg-sucesso {
+    background-color: #2ecc71;
+}
+
+.bg-alerta {
+    background-color: #f39c12;
+}
+
+.bg-perigo {
+    background-color: #e74c3c;
+}

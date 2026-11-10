@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Indicadores Escolares</title>
+    <link rel="stylesheet" href="../css/ds.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Dashboard de Indicadores Escolares</h2>
+
+        <form id="formDados" class="card">
+            <h3>Cadastrar Dados de Aluno</h3>
+            <div class="form-grid">
+                <input type="text" id="nome" placeholder="Nome" required>
+                <input type="text" id="turma" placeholder="Turma (ex: 1A)" required>
+                <input type="number" id="nota" step="0.1" min="0" max="10" placeholder="Nota (0-10)" required>
+                <input type="number" id="frequencia" step="0.1" min="0" max="100" placeholder="Frequência (%)" required>
+            </div>
+            <button type="submit" class="btn">Adicionar Aluno</button>
+        </form>
+
+        <div class="filtros card">
+            <label for="filtroTurma">Filtrar por Turma:</label>
+            <select id="filtroTurma">
+                <option value="todas">Todas as Turmas</option>
+            </select>
+        </div>
+
+        <div class="dash-grid">
+            <div class="card metric-card">
+                <h4>Média Geral da Turma</h4>
+                <div id="mediaGeral" class="valor-metrica">0.0</div>
+            </div>
+            <div class="card metric-card">
+                <h4>Frequência Média (%)</h4>
+                <div id="freqMedia" class="valor-metrica">0%</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Distribuição do Desempenho Acadêmico</h3>
+            <div class="grafico-container">
+                <div class="barra-grupo">
+                    <span class="label-barra">Aprovados (≥ 7.0)</span>
+                    <div class="trilho-barra">
+                        <div id="barraAprovados" class="fill-barra bg-sucesso" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+
+                <div class="barra-grupo">
+                    <span class="label-barra">Recuperação (5.0 a 6.9)</span>
+                    <div class="trilho-barra">
+                        <div id="barraRecuperacao" class="fill-barra bg-alerta" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+
+                <div class="barra-grupo">
+                    <span class="label-barra">Reprovados (< 5.0)</span>
+                    <div class="trilho-barra">
+                        <div id="barraReprovados" class="fill-barra bg-perigo" style="width: 0%;">0%</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/ds.js"></script>
+</body>
+</html>
